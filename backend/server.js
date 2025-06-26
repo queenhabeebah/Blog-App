@@ -2,6 +2,8 @@ const express = require('express')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 
+const authRoutes = require('./routes/authRoutes')
+
 dotenv.config()
 
 const app = express()
@@ -12,7 +14,9 @@ connectDB()
 // Middlewares
 app.use(express.json())
 
-// Test Route
+// Routes
+app.use('/api/auth', authRoutes)
+
 app.get('/', (req, res) => {
     res.send('API is running...')
 })
