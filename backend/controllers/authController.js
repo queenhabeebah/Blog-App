@@ -31,6 +31,8 @@ exports.registerUser = async (req, res) => {
             token: generateToken(user._id)
         })
     } catch(error){
+        console.error(error);
+        
         res.status(500).json({message: 'Server error'})
     }
 }
@@ -43,7 +45,7 @@ exports.loginUser = async (req, res) => {
         //Find user
         const user = await User.findOne({email})
         if(!user) return res.status(400).json({ message: 'Invalid login details'})
-        
+
         // Compare password
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch) return res.status(400).json({message: 'Invalid login details'})
@@ -55,13 +57,15 @@ exports.loginUser = async (req, res) => {
             token: generateToken(user._id)
         })
     } catch(error){
+        console.error(error);
+        
         res.status(500).json({message: 'Server error'})
     }
 }
 
 // Generate JWT Token
 const generateToken = (id) => {
-    return jwt.sign({id}), process.env.JWT_SECRET, {
+    return jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn: '7d'
-    }
+    })
 }
