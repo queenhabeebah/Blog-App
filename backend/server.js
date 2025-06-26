@@ -17,7 +17,7 @@ app.use(express.json())
 
 // Routes
 app.use('/api/auth', authRoutes)
-app.use('/api/post', postRoutes)
+app.use('/api/posts', postRoutes)
 
 app.get('/', (req, res) => {
     res.send('API is running...')
