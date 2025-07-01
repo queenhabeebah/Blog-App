@@ -1,14 +1,14 @@
 const Comment = require("../models/Comment");
 
 exports.createComment = async (req, res) => {
-  const { comment } = req.body;
+  const { text } = req.body;
   const postId = req.params.postId
 
   try {
     const newComment = await Comment.create({
       post: postId,
       user: req.user._id,
-      comment,
+      text,
     });
     res.status(201).json(newComment);
   } catch (error) {

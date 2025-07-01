@@ -5,7 +5,7 @@ const {createComment, updateComment, deleteComment} = require('../controllers/co
 
 const protect = require('../middleware/authMiddleware')
 
-router.post('/', protect, createComment)
+router.post('/:postId', protect, createComment)
 router.put('/:id', protect, updateComment)
 router.delete('/:id', protect, deleteComment)
 
