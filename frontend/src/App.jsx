@@ -1,15 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Layout from "./layout/Layout";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-100">
-      <h1 className="text-3xl font-bold text-green-700">Tailwind 4 is working 🎉</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="dashboard" element={<Dashboard />} />
+      </Route>
+    </Routes>
   );
 }
 
