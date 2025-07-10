@@ -24,6 +24,8 @@ const Register = () => {
       login(res.data.user, res.data.token);
       navigate("/dashboard");
     } catch (err) {
+      console.error(err);
+      
       setError(err.response?.data?.message || "Registration Failed");
     }
   };
