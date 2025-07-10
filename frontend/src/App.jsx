@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./layout/Layout";
 import PrivateRoute from "./components/PrivateRoutes";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -16,6 +17,12 @@ function App() {
         <Route path="dashboard" element={
           <PrivateRoute>
             <Dashboard />
+
+          </PrivateRoute>
+          } />
+        <Route path="create-post" element={
+          <PrivateRoute>
+            <CreatePost />
 
           </PrivateRoute>
           } />
