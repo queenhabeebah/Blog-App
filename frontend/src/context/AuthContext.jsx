@@ -9,7 +9,14 @@ const AuthProvider = ({ children}) => {
         const token = localStorage.getItem('token')
         const userInfo = localStorage.getItem('user')
         if (token && userInfo) {
-            setUser(JSON.parse(userInfo))
+            try {
+                const parsedUser = JSON.parse(userInfo)
+                setUser(parsedUser)
+            } catch (error) {
+                console.error("Failed to parse user info from localStorage:", error);
+                localStorage.removeItem('user')
+                setUser(null)
+            }
         }
     }, [])
 
