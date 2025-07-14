@@ -28,14 +28,19 @@ const Home = () => {
         <p>No posts found.</p>
       ) : (
         posts.map((post) => (
-          <div className="bg-white p-4 rounded shadow">
+          <div key={post._id} className="bg-white p-4 rounded shadow">
             <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
             <p className="text-sm text-gray-600 mb-1">
               By {post.author?.username || "Unknown"} on{" "}
               {new Date(post.createdAt).toLocaleDateString()}
             </p>
             <p className="mb-3">{post.content.substring(0, 100)}...</p>
-            <Link className="text-blue-600 hover:underline">Read More</Link>
+            <Link
+              to={`/posts/${post._id}`}
+              className="text-blue-600 hover:underline"
+            >
+              Read More
+            </Link>
           </div>
         ))
       )}
