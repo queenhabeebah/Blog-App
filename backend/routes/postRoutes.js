@@ -7,7 +7,9 @@ const {
   getPostById,
   updatePost,
   deletePost,
+  addComment
 } = require("../controllers/postController");
+
 const protect = require('../middleware/authMiddleware')
 
 // PUBLIC ROUTES
@@ -18,5 +20,6 @@ router.get('/:id', getPostById)
 router.post('/', protect, createPost)
 router.put('/:id', protect, updatePost)
 router.delete('/:id', protect, deletePost)
+router.post('/:id/comments', protect, addComment)
 
 module.exports = router
