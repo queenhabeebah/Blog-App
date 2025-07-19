@@ -4,7 +4,7 @@ exports.getComments = async (req, res) => {
   try {
     const comments = await Comment.find({ post: req.params.postId })
       .populate("user", "name")
-      .sort({ createAt: 1 });
+      .sort({ createdAt: 1 });
     res.json(comments);
   } catch (error) {
     res.status(500).json({ message: "Failed to load comments" });
@@ -21,7 +21,9 @@ exports.createComment = async (req, res) => {
       user: req.user._id,
       text,
     });
-    res.status(201).json(newComment);
+    const populatedComment = await newComment.populate("user", "name");
+
+    res.status(201).json(populatedComment);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to create comment" });
@@ -38,7 +40,7 @@ exports.updateComment = async (req, res) => {
         .status(401)
         .json({ message: "Not authorized to edit this comment" });
     }
-    comment.comment = req.body.comment || comment.comment;
+    comment.text = req.body.text || comment.text;
     const updatedComment = await comment.save();
     res.json(updatedComment);
   } catch (error) {
