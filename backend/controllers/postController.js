@@ -92,25 +92,3 @@ exports.deletePost = async (req, res) => {
     res.status(500).json({ message: "Error deleting post" });
   }
 };
-
-exports.addComment = async(req, res) => {
-  try {
-    const post = await Post.findById(req.params.id)
-    if(!post) return res.status(404).json({message: 'Post not found'})
-
-      const comment = {
-        user: req.user._id,
-        text: req.body.text,
-      }
-
-      post.comments.push(comment)
-      await post.save()
-
-      await post.populate('comments.user', 'username')
-
-      res.status(201).json({ message: 'Comment added', comment })
-  } catch(error){
-    console.error(error);
-    res.status(500).json({message: 'Ssomething went wrong'})
-  }
-}
