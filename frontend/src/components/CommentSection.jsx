@@ -14,7 +14,7 @@ const CommentSection = ({ postId }) => {
 
     const fetchComments = async () => {
         try {
-            const res = await api.get(`/posts/${postId}/comments`)
+            const res = await api.get(`/comments/posts/${postId}/comments`)
             setComments(res.data)
         } catch (err) {
             console.error('Failed to fetch comments', err);
