@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
+import CommentSection from "../components/CommentSection";
 
 const SinglePost = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const SinglePost = () => {
           />
         )}
         <p>{post.content}</p>
-      
+        <CommentSection postId={post._id} />
     </div>
   );
 };
