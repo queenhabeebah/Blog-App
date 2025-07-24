@@ -1,11 +1,17 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 const Register = () => {
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard", { replace: true })
+    }
+  }, [user])
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -21,8 +27,16 @@ const Register = () => {
         email,
         password,
       });
-      login(res.data.user, res.data.token);
-      navigate("/dashboard");
+
+      const userData = {
+        _id: res.data._id,
+        username: res.data.username,
+        email: res.data.email,
+      }
+
+      const token = res.data.token
+      login(userData, token);
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       console.error(err);
       

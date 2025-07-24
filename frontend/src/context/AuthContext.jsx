@@ -1,44 +1,53 @@
 import { createContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
-const AuthProvider = ({ children}) => {
-    const [user, setUser] = useState(null)
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        const userInfo = localStorage.getItem('user')
-        if (token && userInfo &&
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    const userInfo = localStorage.getItem("user");
+    if (
+      storedToken &&
+      userInfo &&
       userInfo !== "undefined" &&
-      userInfo !== "null") {
-            try {
-                const parsedUser = JSON.parse(userInfo)
-                setUser(parsedUser)
-            } catch (error) {
-                console.error("Failed to parse user info from localStorage:", error);
-                localStorage.removeItem('user')
-                setUser(null)
-            }
-        }
-    }, [])
-
-    const login = (userData, token) => {
-        localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(userData))
-        setUser(userData)
+      userInfo !== "null"
+    ) {
+      try {
+        const parsedUser = JSON.parse(userInfo);
+        setToken(storedToken)
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Failed to parse user info from localStorage:", error);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        setUser(null);
+        setToken(null)
+      }
     }
+  }, []);
 
-    const logout = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        setUser(null)
-    }
+  const login = (userData, token) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
+    setToken(token);
+  };
 
-    return(
-        <AuthContext.Provider value={ { user, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    setToken(null)
+  };
 
-export default AuthProvider
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthProvider;
