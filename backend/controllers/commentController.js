@@ -1,19 +1,21 @@
+const mongoose = require("mongoose");
 const Comment = require("../models/Comment");
 
 exports.getComments = async (req, res) => {
   try {
     const postId = req.params.postId;
-    console.log("🪵 postId received in getComments:", postId); // <-- Add this line
-if (!mongoose.Types.ObjectId.isValid(postId)) {
-  return res.status(400).json({ message: "Invalid post ID" });
-}
-
+    console.log("postId received in getComments:", postId); // <-- Add this line
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+      return res.status(400).json({ message: "Invalid post ID" });
+    }
 
     const comments = await Comment.find({ post: req.params.postId })
       .populate("user", "name")
       .sort({ createdAt: 1 });
+
     res.json(comments);
   } catch (error) {
+    console.error("getComments error:", error);
     res.status(500).json({ message: "Failed to load comments" });
   }
 };
