@@ -29,7 +29,7 @@ const CommentSection = ({ postId }) => {
         try {
             setLoading(true)
             const res = await api.post(
-                `/comments/${postId}`,
+                `/posts/${postId}/comments`,
                 { text },
                 {
                     headers: {

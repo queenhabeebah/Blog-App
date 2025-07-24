@@ -8,7 +8,9 @@ const AuthProvider = ({ children}) => {
     useEffect(() => {
         const token = localStorage.getItem('token')
         const userInfo = localStorage.getItem('user')
-        if (token && userInfo) {
+        if (token && userInfo &&
+      userInfo !== "undefined" &&
+      userInfo !== "null") {
             try {
                 const parsedUser = JSON.parse(userInfo)
                 setUser(parsedUser)
