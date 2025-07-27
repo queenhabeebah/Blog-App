@@ -37,7 +37,7 @@ const SinglePost = () => {
           />
         )}
         <p>{post.content}</p>
-        <CommentSection postId={post._id} />
+        <CommentSection postId={post._id} postAuthorId={post.author._id} />
     </div>
   );
 };
