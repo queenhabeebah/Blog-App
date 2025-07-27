@@ -56,7 +56,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
   const handleEdit = async (commentId) => {
     try {
       const res = await api.put(
-        `/posts/${commentId}`,
+        `/posts/comments/${commentId}`,
         { text: editedText },
         {
           headers: {
@@ -77,7 +77,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
   const handleDelete = async (commentId) => {
     if (!window.confirm("Delete this comment?")) return;
     try {
-      await api.delete(`/comments/${commentId}`, {
+      await api.delete(`/posts/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
