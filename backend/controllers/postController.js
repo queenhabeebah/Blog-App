@@ -48,7 +48,7 @@ exports.getPostById = async (req, res) => {
   }
 };
 
-exports.getUserPost = async (req, res) => {
+exports.getUserPosts = async (req, res) => {
   try{
     const posts = await post.find({ author: req.user._id })
     res.json(posts)
