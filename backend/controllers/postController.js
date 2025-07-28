@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const { post } = require("../routes/commentRoutes");
 
 exports.createPost = async (req, res) => {
   const { title, content, tags, image } = req.body;
@@ -46,6 +47,15 @@ exports.getPostById = async (req, res) => {
     res.status(500).json({ message: "Error fetching post" });
   }
 };
+
+exports.getUserPost = async (req, res) => {
+  try{
+    const posts = await post.find({ author: req.user._id })
+    res.json(posts)
+  } catch(error) {
+    res.status(500).json({ message: "Server error"})
+  }
+}
 
 exports.updatePost = async (req, res) => {
   try {
