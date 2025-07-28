@@ -29,7 +29,7 @@ const Dashboard = () => {
   const handleDelete = async (postId) => {
     if (!window.confirm("Delete this post?")) return;
     try {
-      await api.delete(`/post/${postId}`, {
+      await api.delete(`/posts/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
