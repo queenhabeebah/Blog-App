@@ -12,14 +12,15 @@ const {
 
 const protect = require('../middleware/authMiddleware')
 
+// PRIVATE ROUTES (require login)
+router.get("/user", protect, getUserPosts)
+router.post('/', protect, createPost)
+router.put('/:id', protect, updatePost)
+router.delete('/:id', protect, deletePost)
+
 // PUBLIC ROUTES
 router.get('/', getAllPosts)
 router.get('/:id', getPostById)
 
-// PRIVATE ROUTES (require login)
-router.post('/', protect, createPost)
-router.put('/:id', protect, updatePost)
-router.get("/user", protect, getUserPosts)
-router.delete('/:id', protect, deletePost)
 
 module.exports = router
