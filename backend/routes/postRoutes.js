@@ -19,6 +19,7 @@ router.get('/:id', getPostById)
 // PRIVATE ROUTES (require login)
 router.post('/', protect, createPost)
 router.put('/:id', protect, updatePost)
-router.delete('/:id', protect, deletePost)
 router.get("/user", protect, getUserPosts)
+router.delete('/:id', protect, deletePost)
+
 module.exports = router
