@@ -1,5 +1,4 @@
 const Post = require("../models/Post");
-const { post } = require("../routes/commentRoutes");
 
 exports.createPost = async (req, res) => {
   const { title, content, tags, image } = req.body;
@@ -50,7 +49,7 @@ exports.getPostById = async (req, res) => {
 
 exports.getUserPosts = async (req, res) => {
   try{
-    const posts = await post.find({ author: req.user._id })
+    const posts = await Post.find({ author: req.user._id })
     res.json(posts)
   } catch(error) {
     res.status(500).json({ message: "Server error"})
