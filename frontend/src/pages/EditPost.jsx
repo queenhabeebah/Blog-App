@@ -30,7 +30,7 @@ const EditPost = () => {
   }, [id]);
 
   // Handle post update
-  const handlePost = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
