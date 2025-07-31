@@ -2,6 +2,9 @@ const Post = require("../models/Post");
 const { uploadToCloudinary } = require ("../utils/cloudinary")
 
 exports.createPost = async (req, res) => {
+console.log("BODY:", req.body);
+  console.log("FILE:", req.file);
+
   const { title, content, tags } = req.body;
 
 
@@ -22,7 +25,7 @@ exports.createPost = async (req, res) => {
 
     res.status(201).json(post);
   } catch (error) {
-    console.error(error);
+    console.error("ERROR CREATING POST",error.message);
     res.status(500).json({ message: "Failed to create post" });
   }
 };
