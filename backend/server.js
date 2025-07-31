@@ -18,7 +18,7 @@ connectDB()
 app.use(cors())
 // Middlewares
 app.use(express.json())
-
+app.use(express.urlencoded({ extended: true }))
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/posts', postRoutes)

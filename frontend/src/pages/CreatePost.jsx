@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const CreatePost = () => {
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await api.post("/posts", { title, content });
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await api.post("/posts", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Post created successfully");
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
@@ -37,9 +55,19 @@ const CreatePost = () => {
           className="w-full p-2 border rounded h-40"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          rows={20}
           required
-        ></textarea>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          className="mb-4"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
           Create Post
         </button>
       </form>
@@ -47,4 +75,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost
+export default CreatePost;

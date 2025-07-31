@@ -15,7 +15,6 @@ const upload = require("../middleware/multer")
 
 // PRIVATE ROUTES (require login)
 router.get("/user", protect, getUserPosts)
-router.post('/', protect, createPost)
 router.post('/', protect, upload.single("image"), createPost)
 router.put('/:id', protect, updatePost)
 router.delete('/:id', protect, deletePost)
