@@ -67,6 +67,11 @@ exports.getUserPosts = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
+    let imageUrl = ""
+    if(req.file) {
+      const uploadResult = await uploadToCloudinary(req.file.path)
+      imageUrl = uploadResult.secure_url
+    }
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).json({ message: "Post not found" });
 
@@ -81,7 +86,7 @@ exports.updatePost = async (req, res) => {
     post.title = title || post.title;
     post.content = content || post.content;
     post.tags = tags || post.tags;
-    post.image = image || post.image;
+    post.image = imageUrl || post.image;
 
     const updatedPost = await post.save();
     res.json(updatedPost);
