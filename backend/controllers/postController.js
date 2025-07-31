@@ -1,14 +1,22 @@
 const Post = require("../models/Post");
+const { uploadToCloudinary } = require ("../utils/cloudinary")
 
 exports.createPost = async (req, res) => {
-  const { title, content, tags, image } = req.body;
+  const { title, content, tags } = req.body;
+
 
   try {
+    let imageUrl = ""
+    if (req.file) {
+      const uploadResult = await uploadToCloudinary(req.file.path)
+      imageUrl = uploadResult.secure_url
+    }
+
     const post = await Post.create({
       title,
       content,
       tags,
-      image,
+      image: imageUrl,
       author: req.user._id,
     });
 
