@@ -5,6 +5,8 @@ import { AuthContext } from "../context/AuthContext";
 
 const CreatePost = () => {
   const { token } = useContext(AuthContext);
+  console.log(token);
+
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -26,11 +28,14 @@ const CreatePost = () => {
       await api.post("/posts", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
         },
       });
 
       alert("Post created successfully");
+      setTitle("");
+      setContent("");
+      setImage("");
+
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
