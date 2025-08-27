@@ -92,7 +92,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
     <div className="mt-6">
       <h3 className="text-xl font-semibold mb-2">Comments</h3>
       {user && (
-        <form onSubmit={handleAddComment} className="mb-4 space-y-2">
+        <form onSubmit={handleAddComment} className="form mb-4 space-y-2">
           <textarea
             rows="3"
             className="w-full border p-2 rounded"
@@ -103,7 +103,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            className="button bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700"
           >
             {loading ? "Posting..." : "Post Comment"}
           </button>
@@ -111,7 +111,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
       )}
       <div className="space-y-4">
         {comments.map((comment) => (
-          <div key={comment._id} className="border p-3 rounded bg-gray-100">
+          <div key={comment._id} className="comment border p-3 rounded bg-gray-100">
             {editingCommentId === comment._id ? (
               <>
                 <textarea
@@ -123,7 +123,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
                 <div className="flex gap-2 m-2">
                   <button
                     onClick={() => handleEdit(comment._id)}
-                    className="bg-green-600 text-white px-3 py-1 rounded"
+                    className="button bg-green-600 text-white px-3 py-1 rounded"
                   >
                     Save
                   </button>
@@ -132,7 +132,7 @@ const CommentSection = ({ postId, postAuthorId }) => {
                       setEditingCommentId(null);
                       setEditedText("");
                     }}
-                    className="bg-gray-400 text-white px-3 py-1 rounded"
+                    className="button bg-gray-400 text-white px-3 py-1 rounded"
                   >
                     Cancel
                   </button>
@@ -152,14 +152,14 @@ const CommentSection = ({ postId, postAuthorId }) => {
                           setEditingCommentId(comment._id);
                           setEditedText(comment.text);
                         }}
-                        className="text-blue-600 hover:underline text-sm"
+                        className="button text-blue-600 hover:underline text-sm"
                       >
                         Edit
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(comment._id)}
-                      className="text-red-600 hover:underline text-sm"
+                      className="button text-red-600 hover:underline text-sm"
                     >
                       Delete
                     </button>

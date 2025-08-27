@@ -60,7 +60,7 @@ const EditPost = () => {
       <h2 className="text-2xl font-bold mb-4">Edit Post</h2>
       {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleUpdate} className="space-y-4">
+      <form onSubmit={handleUpdate} className="form space-y-4">
         <input
           type="text"
           placeholder="Post title"
@@ -81,7 +81,7 @@ const EditPost = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-green-700"
+          className="button w-full bg-blue-600 text-white py-2 rounded hover:bg-green-700"
           disabled={loading}
         >
           {loading ? "Updating..." : "Update Post"}

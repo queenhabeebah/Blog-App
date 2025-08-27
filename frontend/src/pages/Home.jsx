@@ -10,6 +10,7 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         const res = await api.get("/posts");
+        console.log("API response:", res.data); 
         setPosts(res.data);
         setLoading(false);
       } catch (err) {
@@ -28,7 +29,7 @@ const Home = () => {
         <p>No posts found.</p>
       ) : (
         posts.map((post) => (
-          <div key={post._id} className="bg-white p-4 rounded shadow">
+          <div key={post._id} className="post bg-white p-4 rounded shadow">
             <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
             <p className="text-sm text-gray-600 mb-1">
               By {post.author?.username || "Unknown"} on{" "}
@@ -37,7 +38,7 @@ const Home = () => {
             <p className="mb-3">{post.content.substring(0, 100)}...</p>
             <Link
               to={`/posts/${post._id}`}
-              className="text-blue-600 hover:underline"
+              className="link text-blue-600 hover:underline"
             >
               Read More
             </Link>

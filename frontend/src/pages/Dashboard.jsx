@@ -47,7 +47,7 @@ const Dashboard = () => {
       </h1>
       <Link
         to="/create-post"
-        className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        className="link inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
         Create New Post
       </Link>
@@ -64,7 +64,7 @@ const Dashboard = () => {
           {posts.map((post) => (
             <div
               key={post._id}
-              className="border p-4 rounded shadow-sm bg-gray-50"
+              className="post border p-4 rounded shadow-sm bg-gray-50"
             >
               <h3 className="text-lg font-bold">{post.title}</h3>
               <p className="text-sm text-gray-600">
@@ -77,13 +77,13 @@ const Dashboard = () => {
               <div className="flex gap-4 mt-2">
                 <Link
                   to={`/edit-post/${post._id}`}
-                  className="text-blue-600 hover:underline text-sm"
+                  className="edit-button text-blue-600 hover:underline text-sm"
                 >
                   Edit
                 </Link>
                 <button
                   onClick={() => handleDelete(post._id)}
-                  className="text-red-600 hover:underline text-sm"
+                  className="button text-red-600 hover:underline text-sm"
                 >
                   Delete
                 </button>

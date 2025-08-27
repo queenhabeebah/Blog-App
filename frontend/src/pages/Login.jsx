@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+    <div className="login max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       {error && <p className="text-red-500 mb-2">{error}</p>}
       <form onSubmit={handleLogin} className="space-y-4">
@@ -59,7 +59,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        <button className="button w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
           Login
         </button>
       </form>
