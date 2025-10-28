@@ -11,7 +11,7 @@ console.log("BODY:", req.body);
   try {
     let imageUrl = ""
     if (req.file) {
-      const uploadResult = await uploadToCloudinary(req.file.buffer)
+      const uploadResult = await uploadToCloudinary(req.file.path)
       imageUrl = uploadResult.secure_url
     }
 
