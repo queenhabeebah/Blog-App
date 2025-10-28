@@ -10,7 +10,7 @@ const {
   getUserPosts
 } = require("../controllers/postController");
 
-const { protect } = require('../middleware/authMiddleware')
+const protect = require('../middleware/authMiddleware')
 const upload = require("../middleware/multer")
 
 // PRIVATE ROUTES (require login)
