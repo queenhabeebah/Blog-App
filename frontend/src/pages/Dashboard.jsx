@@ -7,9 +7,8 @@ const Dashboard = () => {
   const { user, token } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchMyPosts = async () => {
       try {
         const res = await api.get("/posts/user", {
@@ -55,45 +54,27 @@ const Dashboard = () => {
       <hr className="my-6" />
       <h2 className="text-xl font-semibold mb-4">Your Posts</h2>
 
-{loading ? (
+      {loading ? (
         <p>Loading...</p>
       ) : posts.length === 0 ? (
         <p>You haven't written any posts yet.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="post-grid">
           {posts.map((post) => (
-            <div
-              key={post._id}
-              className="post border p-4 rounded shadow-sm bg-gray-50"
-            >
-              <h3 className="text-lg font-bold">{post.title}</h3>
-              <p className="text-sm text-gray-600">
-                {new Date(post.createdAt).toLocaleString()}
-              </p>
-              <p className="mt-2 text-gray-700">
-                {post.content?.substring(0, 100)}...
-              </p>
+            <div key={post._id} className="post">
+              <h3>{post.title}</h3>
+              <p className="author">{new Date(post.createdAt).toLocaleString()}</p>
+              <img src={post.image} alt={post.title} />
+              <p>{post.content}...</p>
 
-              <div className="flex gap-4 mt-2">
-                <Link
-                  to={`/edit-post/${post._id}`}
-                  className="edit-button text-blue-600 hover:underline text-sm"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => handleDelete(post._id)}
-                  className="button text-red-600 hover:underline text-sm"
-                >
-                  Delete
-                </button>
+              <div>
+                <Link to={`/edit-post/${post._id}`} className="edit-button">Edit</Link>
+                <button onClick={() => handleDelete(post._id)}>Delete</button>
               </div>
             </div>
           ))}
         </div>
       )}
-
-      
     </div>
   );
 };

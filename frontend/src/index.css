@@ -19,6 +19,7 @@ body {
 }
 .edit-button,
 button {
+  display: block;
   background-color: var(--color-blue);
   color: var(--color-white);
   border: none;
@@ -26,10 +27,12 @@ button {
   font-weight: bold;
   padding: 0.7rem 1.2rem;
   margin-right: 1rem;
+  margin-bottom: 1rem;
   border-radius: 6px;
   width: 10rem;
   text-align: center;
   cursor: pointer;
+  text-decoration: none;
 }
 .edit-button:hover,
 button:hover {
@@ -78,9 +81,22 @@ main {
 main .post {
   background-color: var(--color-white);
   border: 1px solid var(--color-lavender);
-  margin-bottom: 1.5rem;
   padding: 1.5rem;
   border-radius: 8px;
+}
+main h3 {
+  font-size: 24px;
+}
+.post img {
+  display: block;
+  width: 90%;
+  height: 150px;
+  border-radius: 5px;
+  margin: 1.5rem auto;
+}
+.author{
+  font-size: small;
+  font-style: italic;
 }
 .comment {
   background: var(--color-white);
@@ -124,11 +140,18 @@ footer {
   width: 100%;
 }
 
-/* @media screen and (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    font-size: 11px;
-    height: 7rem;
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+  .post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
   }
   
-} */
+}
+@media screen and (min-width: 1025px) {
+  .post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+  }
+}

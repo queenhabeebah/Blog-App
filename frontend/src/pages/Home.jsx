@@ -10,7 +10,7 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         const res = await api.get("/posts");
-        console.log("API response:", res.data); 
+        console.log("API response:", res.data);
         setPosts(res.data);
         setLoading(false);
       } catch (err) {
@@ -28,22 +28,25 @@ const Home = () => {
       ) : posts.length === 0 ? (
         <p>No posts found.</p>
       ) : (
-        posts.map((post) => (
-          <div key={post._id} className="post bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-            <p className="text-sm text-gray-600 mb-1">
-              By {post.author?.username || "Unknown"} on{" "}
-              {new Date(post.createdAt).toLocaleDateString()}
-            </p>
-            <p className="mb-3">{post.content.substring(0, 100)}...</p>
-            <Link
-              to={`/posts/${post._id}`}
-              className="link text-blue-600 hover:underline"
-            >
-              Read More
-            </Link>
-          </div>
-        ))
+        <div className="post-grid">
+          {posts.map((post) => (
+            <div key={post._id} className="post">
+              <h2>{post.title}</h2>
+              <p className="author">
+                By {post.author?.username || "Unknown"} on{" "}
+                {new Date(post.createdAt).toLocaleDateString()}
+              </p>
+              <img src={post.image} alt={post.title} />
+              <p>{post.content.substring(0, 100)}...</p>
+              <Link
+                to={`/posts/${post._id}`}
+                className="link text-blue-600 hover:underline"
+              >
+                Read More
+              </Link>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
